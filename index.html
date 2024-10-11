@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descomposición de Número Aleatorio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #numero, #descomposicion {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Descomposición de Número Aleatorio</h1>
+        <button onclick="generarNumeroAleatorio()">Generar Número Aleatorio</button>
+        <button onclick="descomponerNumero()" id="btnDescomponer" disabled>Descomponer Número</button>
+        <div id="numero"></div>
+        <div id="descomposicion"></div>
+    </div>
+
+    <script>
+        let numeroActual = null;
+
+        function generarNumeroAleatorio() {
+            numeroActual = Math.floor(Math.random() * 1000000) + 1;
+            document.getElementById('numero').innerHTML = `Número: ${numeroActual}`;
+            document.getElementById('descomposicion').innerHTML = '';
+            document.getElementById('btnDescomponer').disabled = false;
+        }
+
+        function descomponerNumero() {
+            if (numeroActual === null) return;
+
+            let num = numeroActual;
+            let potencia = 0;
+            let resultado = [];
+
+            while (num > 0) {
+                const digito = num % 10;
+                if (digito !== 0) {
+                    resultado.unshift(`${digito} × 10<sup>${potencia}</sup>`);
+                }
+                num = Math.floor(num / 10);
+                potencia++;
+            }
+
+            document.getElementById('descomposicion').innerHTML = `Descomposición: ${resultado.join(' + ')}`;
+        }
+    </script>
+</body>
+</html>
